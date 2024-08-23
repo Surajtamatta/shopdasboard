@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { Wrapper } from '../../../../../robotics_frontend-fix-user-profile/src/styles/ContactUs/index';
-
 
 
 export const Container = styled.div`
