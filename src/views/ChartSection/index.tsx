@@ -4,17 +4,16 @@ import {
 } from "@/styles/views/ChartSection";
 import BarCharts from "@/components/BarChart";
 import { useEffect, useState } from "react";
-import { useChartContext } from "@/contexts/Month";
+import { useMonthContext } from "@/contexts/Month";
 import PieCharts from "@/components/PieChart";
 
 
 
 const ChartSection = () => {
 
-const { period } = useChartContext();
+const { month ,setMonth} = useMonthContext();
 
 const [loading, setLoading] = useState<boolean>(false);
-  const [month,setMonth ] = useState<String>("")
   const [data, setData] = useState();
  
 
@@ -28,7 +27,7 @@ const [loading, setLoading] = useState<boolean>(false);
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ month: `${period}` }), 
+        body: JSON.stringify({ month: `${month}` }), 
       });
 
       if (!response.ok) {
@@ -45,14 +44,14 @@ const [loading, setLoading] = useState<boolean>(false);
   
 
   const fetchStatistics = async () => {
-    setMonth("march")
+
     try {
       const response = await fetch("/api/bar-chart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ month: `${period}` }), 
+        body: JSON.stringify({ month: `${month}` }), 
       });
 
       if (!response.ok) {
@@ -70,7 +69,7 @@ const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     fetchPie();
     fetchStatistics();
-  }, [period]);
+  }, [month]);
 
   return (
     <GraphSection>

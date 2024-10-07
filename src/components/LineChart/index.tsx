@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Select } from 'antd';
+import { Typography} from 'antd';
 import {
   Chart as ChartJS,
   LineController,
@@ -15,13 +15,13 @@ import {
   TypographyContent,
   LineChart,
 } from '@/styles/Charts';
+import MonthSelect from '../Select';
 
-import { useChartContext } from '@/contexts/Month';
+
 
 ChartJS.register(LineElement, LineController, PointElement, LinearScale, CategoryScale);
 
 const LineCharts = ({linedata}:any) => {
-  const { setPeriod } = useChartContext();
   const maxCount = Math.max(...(linedata?.map((item: any) => item.count) || [0]));
 
   const data = {
@@ -87,9 +87,7 @@ const LineCharts = ({linedata}:any) => {
     },
   };
 
-  const handleChange = (value: string) => {
-    setPeriod(value) 
-   };
+
 
   return (
     <LineChartContainer>
@@ -102,25 +100,7 @@ const LineCharts = ({linedata}:any) => {
            { linedata?.reduce((sum: number, item: any) => sum + item.count, 0) || 0}
           </Typography.Title>
         </TypographyContent>
-        <Select
-          defaultValue="january"
-          style={{ width: 100,height:30 }}
-          onChange={handleChange}
-          options={[
-            { value: 'january', label: 'january' },
-            { value: 'february', label: 'february' },
-            { value: 'march', label: 'march' },
-            { value: 'april', label: 'april' },
-            { value: 'may', label: 'may' },
-            { value: 'june', label: 'june' },
-            { value: 'july', label: 'july' },
-            { value: 'august', label: 'august' },
-            { value: 'september', label: 'september' },
-            { value: 'october', label: 'october' },
-            { value: 'november', label: 'november' },
-            { value: 'december', label: 'december' },        
-          ]}
-          />
+        <MonthSelect/>
       </Title>
       <LineChart>
         <Line data={data} options={options} />

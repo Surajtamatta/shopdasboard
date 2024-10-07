@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import AnalyticsCard from "@/components/AnalyticsCard";
 import { CardSection,Wrapper ,Title,Content} from "@/styles/views/Analytics";
-import { Select } from "antd";
+import MonthSelect from "@/components/Select";
+import { useMonthContext } from "@/contexts/Month";
+
 
 interface StatisticsData {
   totalSales:number;
@@ -12,13 +14,17 @@ interface StatisticsData {
 
 const Analytics = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [month,setMonth ] = useState<String>("")
+  
+  const {month} = useMonthContext()
+
+
   const [data, setData] = useState<StatisticsData>({
     totalSales: 0,
     totalItemsSold: 0,
     totalItemsNotSold: 0,
     averagePrice:0,
   });
+
 
   useEffect(() => {
     const fetchStatistics = async () => {
@@ -45,33 +51,14 @@ const Analytics = () => {
     fetchStatistics();
   }, [month]);
 
+  console.log(month);
   
-const handleChange = (value: string) => {
- setMonth(value) 
-};
+
   return (
     <CardSection>
         <Content>
           <Title>Transctions Statistics</Title>
-        <Select
-          defaultValue="january"
-          style={{ width: 100,height:30 }}
-          onChange={handleChange}
-          options={[
-            { value: 'january', label: 'january' },
-            { value: 'february', label: 'february' },
-            { value: 'march', label: 'march' },
-            { value: 'april', label: 'april' },
-            { value: 'may', label: 'may' },
-            { value: 'june', label: 'june' },
-            { value: 'july', label: 'july' },
-            { value: 'august', label: 'august' },
-            { value: 'september', label: 'september' },
-            { value: 'october', label: 'october' },
-            { value: 'november', label: 'november' },
-            { value: 'december', label: 'december' },        
-          ]}
-          />
+          <MonthSelect />
         </Content>
       <Wrapper>
       <AnalyticsCard 

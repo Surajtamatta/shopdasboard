@@ -7,7 +7,7 @@ import Link from "next/link";
 
 import { useEffect, useState } from "react";
 
-import { useChartContext } from "@/contexts/Month";
+import { useMonthContext } from "@/contexts/Month";
 
 type Transaction = {
   _id: string;
@@ -22,9 +22,9 @@ interface TableTransaction {
   totalPages: number;
 }
 const TableAnalytics = () => {
-  const { period } = useChartContext();
+  const { month } = useMonthContext();
 
-  const [month, setMonth] = useState<String>("");
+ 
   const [tabledata, setTableData] = useState();
   const [total, setTotal] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
@@ -89,7 +89,7 @@ const TableAnalytics = () => {
   }));
   useEffect(() => {
     fetchTableData();
-  }, [month, period, page, searchText, perPage]);
+  }, [month, page, searchText, perPage]);
 
   return (
     <TableWrap>

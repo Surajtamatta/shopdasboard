@@ -5,12 +5,14 @@ import ChartSection from "@/views/ChartSection";
 import TableAnalytics from "@/views/Tables";
 import { Container, DashboardWrap } from "@/styles/views/Main";
 import BarCharts from "@/components/BarChart";
+import { useSelector } from "react-redux";
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
   open;
   useEffect(() => {
     setOpen(true);
   }, []);
+
 
   return (
     <Container>

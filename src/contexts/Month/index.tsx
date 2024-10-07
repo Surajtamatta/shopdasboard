@@ -2,24 +2,24 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 type ChartContextType = {
-  period: string;
-  setPeriod: (period: string) => void;
+  month: string;
+  setMonth: (period: string) => void;
 };
 
-const ChartContext = createContext<ChartContextType | undefined>(undefined);
+const MonthContext = createContext<ChartContextType | undefined>(undefined);
 
-export const ChartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [period, setPeriod] = useState<string>('year'); // Default value
+export const MonthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [month, setMonth] = useState<string>('january'); 
 
   return (
-    <ChartContext.Provider value={{ period, setPeriod }}>
+    <MonthContext.Provider value={{month, setMonth }}>
       {children}
-    </ChartContext.Provider>
+    </MonthContext.Provider>
   );
 };
 
-export const useChartContext = () => {
-  const context = useContext(ChartContext);
+export const useMonthContext = () => {
+  const context = useContext(MonthContext);
   if (context === undefined) {
     throw new Error('useChartContext must be used within a ChartProvider');
   }

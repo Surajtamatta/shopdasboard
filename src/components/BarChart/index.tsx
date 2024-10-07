@@ -18,7 +18,7 @@ import {
   TypographyContent,
   LineChart,
 } from '@/styles/Charts';
-import { useChartContext } from '@/contexts/Month';
+import MonthSelect from '../Select';
 
 ChartJS.register(
   LineElement,
@@ -31,8 +31,6 @@ ChartJS.register(
 );
 
 const BarCharts = ({bardata}:any) => {
-  const { setPeriod } = useChartContext();
-
   const maxCount = Math.max(...(bardata?.map((item: any) => item.count) || [0]));
 
   const data = {
@@ -110,9 +108,6 @@ const BarCharts = ({bardata}:any) => {
       },
     },
   };
-  const handleChange = (value: string) => {
-    setPeriod(value) 
-   };
    
   return (
     <LineChartContainer>
@@ -125,25 +120,7 @@ const BarCharts = ({bardata}:any) => {
           { bardata?.reduce((sum: number, item: any) => sum + item.count, 0) || 0}
           </Typography.Title>
         </TypographyContent>
-        <Select
-          defaultValue="january"
-          style={{ width: 100,height:30 }}
-          onChange={handleChange}
-          options={[
-            { value: 'january', label: 'january' },
-            { value: 'february', label: 'february' },
-            { value: 'march', label: 'march' },
-            { value: 'april', label: 'april' },
-            { value: 'may', label: 'may' },
-            { value: 'june', label: 'june' },
-            { value: 'july', label: 'july' },
-            { value: 'august', label: 'august' },
-            { value: 'september', label: 'september' },
-            { value: 'october', label: 'october' },
-            { value: 'november', label: 'november' },
-            { value: 'december', label: 'december' },        
-          ]}
-          />
+       <MonthSelect/>
       </Title>
       <LineChart>
         <Bar data={data} options={options} />

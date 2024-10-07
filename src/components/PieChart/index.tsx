@@ -1,9 +1,9 @@
 
 import React,{useState} from 'react'
-import { Typography,Select } from 'antd'
+import { Typography, } from 'antd'
 import {Chart as ChartJS, DoughnutController, LineElement, PointElement, LinearScale,CategoryScale, BarController,
   BarElement} from 'chart.js/auto'
-//import 'chartjs-adapter-date-fns';
+
 import {Doughnut} from 'react-chartjs-2'
 import {
   LineChartContainer,
@@ -11,7 +11,8 @@ import {
   TypographyContent,
   LineChart
 } from "@/styles/Charts";
-import { useChartContext } from '@/contexts/Month';
+import { useMonthContext } from '@/contexts/Month';
+import MonthSelect from '../Select';
 
 ChartJS.register(
   LineElement,
@@ -24,9 +25,7 @@ ChartJS.register(
 )
 
 const PieCharts = ({piedata}:any) => {
-  const { setPeriod } = useChartContext();
-
-
+ 
   const data = {
     labels: piedata?.map((category:any) => (category.category)),
     datasets: [{
@@ -68,9 +67,7 @@ const options={
   }
 
 
-  const handleChange = (value: string) => {
-    setPeriod(value) 
-   };
+
 
    
   return (
@@ -84,25 +81,7 @@ const options={
           { piedata?.reduce((sum: number, item: any) => sum + item.count, 0) || 0}
           </Typography.Title>
         </TypographyContent>
-        <Select
-          defaultValue="january"
-          style={{ width: 100,height:30 }}
-          onChange={handleChange}
-          options={[
-            { value: 'january', label: 'january' },
-            { value: 'february', label: 'february' },
-            { value: 'march', label: 'march' },
-            { value: 'april', label: 'april' },
-            { value: 'may', label: 'may' },
-            { value: 'june', label: 'june' },
-            { value: 'july', label: 'july' },
-            { value: 'august', label: 'august' },
-            { value: 'september', label: 'september' },
-            { value: 'october', label: 'october' },
-            { value: 'november', label: 'november' },
-            { value: 'december', label: 'december' },        
-          ]}
-          />
+        <MonthSelect/>
       </Title> 
        <LineChart>
            <Doughnut  data={data}  options={options} />      

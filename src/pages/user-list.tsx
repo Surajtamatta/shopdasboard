@@ -5,7 +5,7 @@ import { StatsCards } from "@/components/StatsCards";
 import AnalyticsCard from "@/components/AnalyticsCard";
 import { Table, Pagination } from "antd";
 import LineCharts from "@/components/LineChart";
-import { useChartContext } from "@/contexts/Month";
+import { useMonthContext } from "@/contexts/Month";
 
 interface StatisticsData {
   totalSales: number;
@@ -25,10 +25,10 @@ interface TableTransaction {
   totalPages: number;
 }
 const UserList = () => {
-  const { period } = useChartContext();
+  const { month } = useMonthContext();
   const [linedata, setLineData] = useState();
   const [loading, setLoading] = useState<boolean>(false);
-  const [month, setMonth] = useState<String>("");
+  // const [month, setMonth] = useState<String>("");
   const [staticdata, setStaticData] = useState<StatisticsData>({
     totalSales: 0,
     totalItemsSold: 0,
@@ -71,7 +71,7 @@ const UserList = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ month: `${period}` }),
+        body: JSON.stringify({ month: `${month}` }),
       });
 
       if (!response.ok) {
@@ -150,7 +150,7 @@ const UserList = () => {
     fetchTableData();
     fetchLineChart();
     fetchStatistics();
-  }, [month, period, page, searchText, perPage]);
+  }, [month, page, searchText, perPage]);
 
   return (
     <Container>

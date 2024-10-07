@@ -8,10 +8,10 @@ import {
   StatsData,
 } from "./Data";
 import { Container, Wrapper } from "@/styles/Metrics/GraphSection";
-import { useChartContext } from "@/contexts/Month";
+import { useMonthContext } from "@/contexts/Month";
 
  const GraphSection = () => {
-  const { period } = useChartContext();
+  const { month } = useMonthContext();
 
 const [loading, setLoading] = useState<boolean>(false);
   
@@ -26,7 +26,7 @@ const [loading, setLoading] = useState<boolean>(false);
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ month: `${period}` }), 
+        body: JSON.stringify({ month: `${month}` }), 
       });
 
       if (!response.ok) {
@@ -49,7 +49,7 @@ const [loading, setLoading] = useState<boolean>(false);
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ month: `${period}` }), 
+        body: JSON.stringify({ month: `${month}` }), 
       });
 
       if (!response.ok) {
@@ -69,7 +69,7 @@ const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     fetchStatistics();
     fetchPie();
-  }, [period]);
+  }, [month]);
 
 
   console.log(bardata,piedata);

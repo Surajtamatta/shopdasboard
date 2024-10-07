@@ -9,7 +9,6 @@ if(!MONGO_URI){
 
 }
 
-
 async function dbConnect() {
     if(mongoose.connection.readyState>=1){
         return;
